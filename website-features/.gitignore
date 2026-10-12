@@ -1,0 +1,6 @@
+.lake/
+_site/
+*.olean
+*.ilean
+.netlify/
+.vercel/

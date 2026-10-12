@@ -96,6 +96,21 @@ test_list() {
     else
         fail "--list shows package-docs template"
     fi
+    if echo "$output" | grep -q "report-features"; then
+        pass "--list shows report-features template"
+    else
+        fail "--list shows report-features template"
+    fi
+    if echo "$output" | grep -q "basic-report"; then
+        pass "--list shows basic-report template"
+    else
+        fail "--list shows basic-report template"
+    fi
+    if echo "$output" | grep -q "basic-website"; then
+        pass "--list shows basic-website template"
+    else
+        fail "--list shows basic-website template"
+    fi
 }
 
 test_batch_blog() {
@@ -178,6 +193,58 @@ test_batch_package_docs() {
         pass "package-docs: exactly one commit"
     else
         fail "package-docs: exactly one commit (got $commit_count)"
+    fi
+}
+
+test_batch_report_features() {
+    echo "Test: batch mode with report-features template"
+    target="$WORK_DIR/test-report-features"
+    "$SETUP_SH" --branch "$TEST_BRANCH" report-features "$target" 2>&1
+
+    if assert_file_exists "$target/lakefile.toml"; then
+        pass "report-features: lakefile.toml exists"
+    else
+        fail "report-features: lakefile.toml exists"
+    fi
+    if assert_file_exists "$target/Report.lean"; then
+        pass "report-features: Report.lean exists"
+    else
+        fail "report-features: Report.lean exists"
+    fi
+    commit_count=$(git -C "$target" rev-list --count HEAD)
+    if [ "$commit_count" = "1" ]; then
+        pass "report-features: exactly one commit"
+    else
+        fail "report-features: exactly one commit (got $commit_count)"
+    fi
+}
+
+test_batch_basic_report() {
+    echo "Test: batch mode with basic-report template"
+    target="$WORK_DIR/test-basic-report"
+    "$SETUP_SH" --branch "$TEST_BRANCH" basic-report "$target" 2>&1
+
+    if assert_file_exists "$target/lakefile.toml" && assert_file_exists "$target/Report.lean"; then
+        pass "basic-report: project files exist"
+    else
+        fail "basic-report: project files exist"
+    fi
+}
+
+test_batch_basic_website() {
+    echo "Test: batch mode with basic-website template"
+    target="$WORK_DIR/test-basic-website"
+    "$SETUP_SH" --branch "$TEST_BRANCH" basic-website "$target" 2>&1
+
+    if assert_file_exists "$target/lakefile.toml" && assert_file_exists "$target/Main.lean"; then
+        pass "basic-website: project files exist"
+    else
+        fail "basic-website: project files exist"
+    fi
+    if assert_file_exists "$target/static_files/style.css"; then
+        pass "basic-website: stylesheet exists"
+    else
+        fail "basic-website: stylesheet exists"
     fi
 }
 
@@ -285,6 +352,9 @@ test_list
 test_batch_blog
 test_batch_textbook
 test_batch_package_docs
+test_batch_report_features
+test_batch_basic_report
+test_batch_basic_website
 test_error_existing_directory
 test_error_bad_template
 test_error_missing_args

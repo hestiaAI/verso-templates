@@ -1,0 +1,14 @@
+name = "report-features"
+defaultTargets = ["Report", "generate-report"]
+
+[[require]]
+name = "verso"
+git = "https://github.com/leanprover/verso"
+rev = "v4.35.0-rc4"
+
+[[lean_lib]]
+name = "Report"
+
+[[lean_exe]]
+name = "generate-report"
+root = "Main"

@@ -1,0 +1,16 @@
+[build]
+command = "sh build-hosted.sh"
+publish = "_site"
+
+[[redirects]]
+from = "/"
+to = "/en/"
+status = 302
+force = true
+
+[[headers]]
+for = "/*"
+[headers.values]
+X-Content-Type-Options = "nosniff"
+Referrer-Policy = "strict-origin-when-cross-origin"
+Cache-Control = "public, max-age=0, must-revalidate"

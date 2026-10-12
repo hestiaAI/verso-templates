@@ -70,6 +70,19 @@ The page is served at `localhost:8000`.
 This example is a minimal book-like document, showing the smallest way to get started with the
 Manual genre. There are no customizations or advanced features used.
 
+## Basic Report
+
+This example is the smallest report-oriented starting point, using the Manual genre with a title,
+metadata, and a few simple sections. [Report Features](#report-features) is the fuller report
+example, with a detailed structure and coordinated HTML/PDF styling.
+
+## Report Features
+
+This feature-rich template provides a structured report layout with report metadata, an executive summary,
+automatically numbered sections, methodology, findings, recommendations, references, and appendices.
+It builds both a multi-page website and a PDF (with TeX Live, `latexmk`, XeLaTeX, and its DejaVu
+fonts package installed).
+
 ## Package Description
 
 This example demonstrates a way to use Verso to describe Lean code.
@@ -99,6 +112,21 @@ Then, a custom build pass traverses the document, finding all the indicated exam
 them to files.
 
 # Web
+
+## Basic Website
+
+This is a small static website generated with Verso's HTML constructors. It includes a home page,
+an about page, and provider-neutral instructions for publishing the generated `_site/` directory
+to any static host.
+
+## Website Features
+
+The `website-features` template demonstrates a multilingual GVA.DATA website intended for
+`https://gva.data.foundation`. It includes English and French routes, nested navigation, blog
+articles, project pages, partner tiles, team profiles, a Theory of Change, contact information,
+and draft legal pages. A typed content model selects a distinct layout for each section, and
+Verso's HTML renderer generates the complete static site. See [website-features/README.md](website-features/README.md)
+for build, customization, and deployment instructions.
 
 ## Basic Blog
 

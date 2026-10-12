@@ -59,6 +59,9 @@ try {
     if ($output -match "basic-blog") { Pass "-List shows basic-blog template" } else { Fail "-List shows basic-blog template" }
     if ($output -match "textbook") { Pass "-List shows textbook template" } else { Fail "-List shows textbook template" }
     if ($output -match "package-docs") { Pass "-List shows package-docs template" } else { Fail "-List shows package-docs template" }
+    if ($output -match "report-features") { Pass "-List shows report-features template" } else { Fail "-List shows report-features template" }
+    if ($output -match "basic-report") { Pass "-List shows basic-report template" } else { Fail "-List shows basic-report template" }
+    if ($output -match "basic-website") { Pass "-List shows basic-website template" } else { Fail "-List shows basic-website template" }
 
     Write-Host "Test: batch mode with basic-blog template"
     $target = Join-Path $WorkDir "test-blog"
@@ -87,6 +90,25 @@ try {
     if (Test-Path "$target/manual/Main.lean") { Pass "package-docs: manual/Main.lean exists" } else { Fail "package-docs: manual/Main.lean exists" }
     $commitCount = git -C $target rev-list --count HEAD
     if ($commitCount -eq "1") { Pass "package-docs: exactly one commit" } else { Fail "package-docs: exactly one commit (got $commitCount)" }
+
+    Write-Host "Test: batch mode with report-features template"
+    $target = Join-Path $WorkDir "test-report-features"
+    pwsh -File $SetupPs1 -Branch $Branch report-features $target 2>&1 | Out-Null
+    if (Test-Path "$target/lakefile.toml") { Pass "report-features: lakefile.toml exists" } else { Fail "report-features: lakefile.toml exists" }
+    if (Test-Path "$target/Report.lean") { Pass "report-features: Report.lean exists" } else { Fail "report-features: Report.lean exists" }
+    $commitCount = git -C $target rev-list --count HEAD
+    if ($commitCount -eq "1") { Pass "report-features: exactly one commit" } else { Fail "report-features: exactly one commit (got $commitCount)" }
+
+    Write-Host "Test: batch mode with basic-report template"
+    $target = Join-Path $WorkDir "test-basic-report"
+    pwsh -File $SetupPs1 -Branch $Branch basic-report $target 2>&1 | Out-Null
+    if ((Test-Path "$target/lakefile.toml") -and (Test-Path "$target/Report.lean")) { Pass "basic-report: project files exist" } else { Fail "basic-report: project files exist" }
+
+    Write-Host "Test: batch mode with basic-website template"
+    $target = Join-Path $WorkDir "test-basic-website"
+    pwsh -File $SetupPs1 -Branch $Branch basic-website $target 2>&1 | Out-Null
+    if ((Test-Path "$target/lakefile.toml") -and (Test-Path "$target/Main.lean")) { Pass "basic-website: project files exist" } else { Fail "basic-website: project files exist" }
+    if (Test-Path "$target/static_files/style.css") { Pass "basic-website: stylesheet exists" } else { Fail "basic-website: stylesheet exists" }
 
     Write-Host "Test: error when directory exists"
     $target = Join-Path $WorkDir "test-exists"

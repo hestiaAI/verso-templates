@@ -1,0 +1,25 @@
+\usepackage{tikz}
+\usepackage{eso-pic}
+\definecolor{ReportTeal}{HTML}{287C78}
+\definecolor{ReportCoral}{HTML}{C86F5C}
+\definecolor{ReportGold}{HTML}{D7B75A}
+\renewcommand*{\chaptitlefont}{\color{ReportTeal}\sffamily\HUGE}
+\setsecheadstyle{\color{ReportTeal}\sffamily\bfseries\Large}
+\setsubsecheadstyle{\color{ReportCoral}\sffamily\bfseries\large}
+\newcommand{\ReportCoverArt}{%
+  \AddToShipoutPictureBG*{%
+    \begin{tikzpicture}[remember picture,overlay]
+      \begin{scope}[shift={([xshift=-34mm,yshift=-34mm]current page.north east)}]
+        \fill[ReportTeal!8] (0,0) circle (28mm);
+        \draw[ReportTeal!32,line width=3mm] (0,0) circle (22mm);
+        \fill[ReportCoral!20] (-13mm,-19mm) -- (1mm,-5mm) -- (15mm,-19mm) -- (1mm,-33mm) -- cycle;
+        \fill[ReportGold!30] (18mm,-14mm) -- (31mm,-27mm) -- (18mm,-40mm) -- (5mm,-27mm) -- cycle;
+        \fill[ReportTeal!72] (-28mm,-3mm) circle (1.1mm);
+        \fill[ReportTeal!52] (-23mm,-3mm) circle (1.1mm);
+        \fill[ReportTeal!32] (-18mm,-3mm) circle (1.1mm);
+      \end{scope}
+      \draw[ReportTeal!15,line width=0.5pt] ([xshift=18mm,yshift=-58mm]current page.north west) -- ([xshift=46mm,yshift=-58mm]current page.north west);
+      \fill[ReportGold!28] ([xshift=18mm,yshift=-58mm]current page.north west) circle (1.5mm);
+    \end{tikzpicture}%
+  }%
+}
