@@ -14,7 +14,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        example: ['basic-blog', 'basic-book', 'blog-features', 'package-docs', 'slides', 'textbook']
+        example: ['basic-blog', 'basic-book', 'basic-report', 'basic-website', 'blog-features', 'package-docs', 'report-features', 'website-features', 'slides', 'textbook']
 
 
     steps:
